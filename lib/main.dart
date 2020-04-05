@@ -14,9 +14,9 @@ void main() {
   final UserRepository userRepository = UserRepository();
   runApp(
     BlocProvider(
-      create: (context) => AuthenticationBloc(
+      builder: (context) => AuthenticationBloc(
         userRepository: userRepository,
-      )..add(AppStarted()),
+      ),
       child: App(userRepository: userRepository),
     ),
   );
@@ -35,13 +35,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is Unauthenticated) {
-            return LoginScreen(userRepository: _userRepository);
-          }
           if (state is Authenticated) {
             return HomeScreen(name: state.displayName);
+          } else {
+            return LoginScreen(userRepository: _userRepository);
           }
-          return SplashScreen();
         },
       ),
     );

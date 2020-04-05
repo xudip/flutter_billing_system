@@ -17,7 +17,7 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Register')),
       body: Center(
         child: BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(userRepository: _userRepository),
+          builder: (context) => RegisterBloc(userRepository: _userRepository),
           child: RegisterForm(),
         ),
       ),
